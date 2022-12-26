@@ -12,7 +12,7 @@ namespace Microservice.Smart.Api.Tests.Models
 			// arrange and act
 			var actualMapInfoResponse = new MapInfoResponse()
 			{
-				Data = expectedMapInfoResponse.Data,
+				Miles = expectedMapInfoResponse.Miles,
 				Errors = expectedMapInfoResponse.Errors
 			};
 

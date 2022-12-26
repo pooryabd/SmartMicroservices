@@ -1,2 +1,0 @@
-obj\Debug\net6.0/Distance.cs \
-obj\Debug\net6.0/DistanceGrpc.cs: ../../Microservice.Smart/Microservice.Smart.Api/Contracts/distance.proto

@@ -5,16 +5,20 @@ using Microservice.Smart.Api.Services;
 using Microservice.Smart.Services.Common.Constants;
 using Microservice.Smart.Services.Common.Contracts;
 using Microservice.Smart.Services.Common.Models;
-using Microservice.Smart.Services.Common.Wrappers;
-using Microservice.Smart.Services.GoogleMapInfo.Contracts;
-using Microservice.Smart.Services.GoogleMapInfo.Services;
 using Microsoft.OpenApi.Models;
 
 namespace Microservice.Smart.Api
 {
+	/// <summary>
+	/// Class Program.
+	/// </summary>
 	[ExcludeFromCodeCoverage]
 	public class Program
 	{
+		/// <summary>
+		/// The entry point.
+		/// </summary>
+		/// <param name="args">The args</param>
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +26,9 @@ namespace Microservice.Smart.Api
 			var configuration = new ConfigurationBuilder().AddJsonFile(CommonConstants.AppSettingsJson, optional: true, reloadOnChange: true).Build();
 
 			builder.Services.AddControllers();
-			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
+
+			// Inject swagger
 			builder.Services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc(CommonConstants.SwaggerVersion, new OpenApiInfo
@@ -33,23 +38,19 @@ namespace Microservice.Smart.Api
 				});
 			});
 
-			IGoogleApiConfiguration googleApiConfiguration = new GoogleApiConfiguration()
+			// build configuration for smart api service
+			ISmartApiConfiguration smartApiConfiguration = new SmartApiConfiguration()
 			{
-				GoogleApiBaseUrl = configuration[GoogleApiConstants.GoogleApiBaseUrl],
-				GoogleApiKey = configuration[GoogleApiConstants.GoogleApiKey],
-				GoogleApiUrl = configuration[GoogleApiConstants.GoogleApiUrl],
-				GoogleApiUrlTemplate = configuration[GoogleApiConstants.GoogleApiUrlTemplate]
+				RequestReceiverGrpcChannelUrl = configuration[SmartApiConstants.RequestReceiverGrpcChannelUrlTitle]
 			};
 
+			// add gRPC
 			builder.Services.AddGrpc();
-			builder.Services.AddHttpClient(DependencyNameConstants.GoogleApiClientName,
-				httpClient => httpClient.BaseAddress = new Uri(googleApiConfiguration.GoogleApiBaseUrl));
 
-			builder.Services.AddSingleton<IHttpClientWrapper, HttpClientWrapper>();
-			builder.Services.AddSingleton<IHttpClientFactoryWrapper, HttpClientFactoryWrapper>();
-			builder.Services.AddSingleton<IGoogleDistanceService, GoogleDistanceService>();
+			// add services to DI
 			builder.Services.AddSingleton<IMapInfoHelper, MapInfoHelper>();
-			builder.Services.AddSingleton(googleApiConfiguration);
+			builder.Services.AddSingleton<IRequestReceiverWrapper, RequestReceiverWrapper>();
+			builder.Services.AddSingleton(smartApiConfiguration);
 
 			var app = builder.Build();
 
@@ -72,7 +73,6 @@ namespace Microservice.Smart.Api
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapGrpcService<DistanceInfoService>();
 				endpoints.MapControllers();
 			});
 

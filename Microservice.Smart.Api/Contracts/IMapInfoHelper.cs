@@ -5,5 +5,7 @@ namespace Microservice.Smart.Api.Contracts
 	public interface IMapInfoHelper
 	{
 		Task<MapInfoResponse> GetDistance(string originCity, string destinationCity);
+		Task<ISSNCodeResponse> CheckISSNCode(string code);
+		
 	}
 }

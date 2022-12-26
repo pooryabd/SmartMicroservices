@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>9820521b-c6f7-418f-8710-4be98d6a8b01</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,17 +16,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Smart.Services.Common\Microservice.Smart.Services.Common.csproj" />
-    <ProjectReference Include="..\Microservice.Smart.Services.GoogleMapInfo\Microservice.Smart.Services.GoogleMapInfo.csproj" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Protobuf Include="Contracts\distance.proto" GrpcServices="Server" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Contracts\distance.proto">
-	    <Generator></Generator>
-	  </None>
-	</ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="..\Microservice.Smart.Services.RequestReceiver\Protos\requestReceiver.proto" GrpcServices="Client">
+      <Link>Protos\requestReceiver.proto</Link>
+    </Protobuf>
+  </ItemGroup>
 
 </Project>

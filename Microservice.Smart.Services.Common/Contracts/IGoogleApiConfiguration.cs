@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microservice.Smart.Services.Common.Contracts
+﻿namespace Microservice.Smart.Services.Common.Contracts
 {
+	/// <summary>
+	/// Interface IGoogleApiConfiguration
+	/// </summary>
 	public interface IGoogleApiConfiguration
 	{
 		public string GoogleApiBaseUrl { get; set; }	

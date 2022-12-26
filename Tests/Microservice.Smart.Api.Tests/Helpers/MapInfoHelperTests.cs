@@ -1,11 +1,10 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
-using Microservice.Smart.Services.GoogleMapInfo.Contracts;
 using NSubstitute;
 using Microservice.Smart.Api.Contracts;
 using Microservice.Smart.Api.Helpers;
-using Microservice.Smart.Services.GoogleMapInfo.Models.Responses;
 using Microservice.Smart.Api.Models;
+using Microservice.Smart.Services.RequestReceiver;
 
 namespace Microservice.Smart.Api.Tests.Helpers
 {
@@ -13,16 +12,16 @@ namespace Microservice.Smart.Api.Tests.Helpers
 	{
 		[Theory]
 		[AutoData]
-		public async Task GetMapDistance_ReturnsExpected_WhenCalled(string originCity, string destinationCity, GoogleDistanceData expectedGoogleDistanceData)
+		public async Task GetMapDistance_ReturnsExpected_WhenCalled(string originCity, string destinationCity, DistanceData expectedGoogleDistanceData)
 		{
 			// arrange
 			var dependencies = InitializeDependencies();
-			dependencies.googleDistanceService.GetMapDistance(originCity, destinationCity)
+			dependencies.requestReceiverWrapper.GetDistance(Arg.Is<Cities>(c => c.OriginCity == originCity && c.DestinationCity == destinationCity))
 				.Returns(expectedGoogleDistanceData);
 
 			var expectedResponse = new MapInfoResponse()
 			{
-				Data = expectedGoogleDistanceData,
+				Miles = expectedGoogleDistanceData.Miles,
 				Errors = null
 			};
 			// act
@@ -38,12 +37,12 @@ namespace Microservice.Smart.Api.Tests.Helpers
 		{
 			// arrange
 			var dependencies = InitializeDependencies();
-			dependencies.googleDistanceService.GetMapDistance(originCity, destinationCity)
-				.Returns<GoogleDistanceData>(_ => throw exception);
+			dependencies.requestReceiverWrapper.GetDistance(Arg.Is<Cities>(c => c.OriginCity == originCity && c.DestinationCity == destinationCity))
+				.Returns<DistanceData>(_ => throw exception);
 
 			var expectedResponse = new MapInfoResponse()
 			{
-				Data = null,
+				Miles = null,
 				Errors = new List<string>()
 				{
 					exception.Message,
@@ -55,13 +54,58 @@ namespace Microservice.Smart.Api.Tests.Helpers
 			// assert
 			actualResponse.Should().BeEquivalentTo(expectedResponse);
 		}
-		private (IGoogleDistanceService googleDistanceService, IMapInfoHelper mapInfoHelper) InitializeDependencies()
+
+		[Theory]
+		[AutoData]
+		public async Task CheckISSNCode_ReturnsExpected_WhenCalled(string code, ISSNCodeResult issnCodeResult)
 		{
-			var googleDistanceService = Substitute.For<IGoogleDistanceService>();
+			// arrange
+			var dependencies = InitializeDependencies();
+			dependencies.requestReceiverWrapper.CheckISSNCode(Arg.Is<ISSNCodeInput>(c => c.Code == code))
+				.Returns(issnCodeResult);
 
-			var mapInfoHelper = new MapInfoHelper(googleDistanceService);
+			var expectedResponse = new ISSNCodeResponse()
+			{
+				Message = issnCodeResult.Message,
+				Errors = null
+			};
+			// act
+			var actualResponse = await dependencies.mapInfoHelper.CheckISSNCode(code);
 
-			return (googleDistanceService, mapInfoHelper);
+			// assert
+			actualResponse.Should().BeEquivalentTo(expectedResponse);
+		}
+
+		[Theory]
+		[AutoData]
+		public async Task CheckISSNCode_ReturnsExpectedError_WhenCalled(string code, Exception exception)
+		{
+			// arrange
+			var dependencies = InitializeDependencies();
+			dependencies.requestReceiverWrapper.CheckISSNCode(Arg.Is<ISSNCodeInput>(c => c.Code == code))
+				.Returns<ISSNCodeResult>(_ => throw exception);
+
+			var expectedResponse = new ISSNCodeResponse()
+			{
+				Message = null,
+				Errors = new List<string>()
+				{
+					exception.Message
+				}
+			};
+			// act
+			var actualResponse = await dependencies.mapInfoHelper.CheckISSNCode(code);
+
+			// assert
+			actualResponse.Should().BeEquivalentTo(expectedResponse);
+		}
+		private (IRequestReceiverWrapper requestReceiverWrapper, IMapInfoHelper mapInfoHelper) InitializeDependencies()
+		{
+			var requestReceiverWrapper = Substitute.For<IRequestReceiverWrapper>();
+
+			var mapInfoHelper = new MapInfoHelper(requestReceiverWrapper);
+
+			return (requestReceiverWrapper, mapInfoHelper);
 		}
 	}
 }

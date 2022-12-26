@@ -2,6 +2,9 @@
 
 namespace Microservice.Smart.Services.Common.Models
 {
+	/// <summary>
+	/// Class GoogleApiConfiguration
+	/// </summary>
 	public class GoogleApiConfiguration : IGoogleApiConfiguration
 	{
 		public string GoogleApiBaseUrl { get; set; }
