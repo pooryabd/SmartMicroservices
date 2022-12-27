@@ -1,4 +1,4 @@
-# Smart API
+# Smart Microservices
 A set of services to communicate with third-party APIs as well as internall business logics.
 # Features
 Basically, this service contains 4 microservices which covers two features, Google’s Distance API and ISSN code checker.
@@ -32,3 +32,7 @@ The application has been written by the TDD approach.
 4. Deploy to the Cluster:
   - kubectl apply -f app.yaml [your address] created
 5. Please notice to change the google API keys in appsetting file.
+6. After successful installation, open the browser and go to the address of API (https://+:80/swagger/index.html), here you will see two get methods
+  - first one is Get Distance 
+  - second one is CheckISSNCode
+  - you can see all details about the request and response here.
