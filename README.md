@@ -12,9 +12,9 @@ The application has been written by the TDD approach.
 1. First of all you can build the docker image and push it or you can pull current version.
 - To build and push do the following: 
   - Please make sure you build and push the latest changes to docker. for doing that please follow below steps: 
-  - Docker build -f "path to docker file" -t smartapi "c:\path\to\directory of project"
-  - Then tag your build: docker image tag smartapi:latest [docker hub]:[your tag]
-  - Then push it: docker push smartapi/smartapi:[your tag]
+  - Docker build -f "path to docker file" -t microservicesmartapi "c:\path\to\directory of project"
+  - Then tag your build: docker image tag microservicesmartapi:latest [docker hub]:[your tag]
+  - Then push it: docker push ~/microservicesmartapi:[your tag]
 - To pull and run the current version simply use this command: 
   - Docker run -d –-name microservicesmartapi -p 8080:80 pooryabd/microservicesmartapi
   - Docker run -d –-name microservicesmartservicesrequestreceiver -p 7036:5036 pooryabd/microservicesmartservicesrequestreceiver
