@@ -2,7 +2,10 @@
 A set of services to communicate with third-party APIs as well as internall business logics.
 # Features
 Basically, this service contains 4 microservices which covers two features, Google’s Distance API and ISSN code checker.
-1. A web service that contains two endpoints to get distance from google API and check ISSN code.
+1. A web service that contains three endpoints:
+  - Get distance from google API.
+  - Check ISSN code validity.
+  - Get list of these smart microservicecs from some sort of persistent storage, in this cas MSSQL Server.
 # Specification
 The back-end stack is ASP.NET Core 6.
 Services are communicating via gRPC.
