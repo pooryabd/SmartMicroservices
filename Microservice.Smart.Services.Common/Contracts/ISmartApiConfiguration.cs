@@ -6,5 +6,6 @@
 	public interface ISmartApiConfiguration
 	{
 		public string RequestReceiverGrpcChannelUrl { get; set; }
+		public string SmartMicroserviceDBConnectionString { get; set; }
 	}
 }

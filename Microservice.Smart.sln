@@ -23,13 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Smart.Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Smart.Services.GoogleDistance", "Microservice.Smart.Services.GoogleDistance\Microservice.Smart.Services.GoogleDistance.csproj", "{8EA3CF1A-ED80-4FB0-8844-B7EA971597ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Smart.Services.RequestReceiver", "Microservice.Smart.Services.RequestReceiver\Microservice.Smart.Services.RequestReceiver.csproj", "{D1E6092B-CBBC-4D84-9B88-C0CB47387BC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Smart.Services.RequestReceiver", "Microservice.Smart.Services.RequestReceiver\Microservice.Smart.Services.RequestReceiver.csproj", "{D1E6092B-CBBC-4D84-9B88-C0CB47387BC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Smart.Services.GoogleDistance.Tests", "Tests\Microservice.Smart.Services.GoogleDistance.Tests\Microservice.Smart.Services.GoogleDistance.Tests.csproj", "{FEA33E65-1FAA-4A00-987D-14401C37DB53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Smart.Services.GoogleDistance.Tests", "Tests\Microservice.Smart.Services.GoogleDistance.Tests\Microservice.Smart.Services.GoogleDistance.Tests.csproj", "{FEA33E65-1FAA-4A00-987D-14401C37DB53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Smart.Services.RequestReceiver.Tests", "Tests\Microservice.Smart.Services.RequestReceiver.Tests\Microservice.Smart.Services.RequestReceiver.Tests.csproj", "{6F9CBF80-9C26-48B2-876B-DF251578664A}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C8BA1099-E157-4434-979A-68FE7C5EF010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Smart.Services.RequestReceiver.Tests", "Tests\Microservice.Smart.Services.RequestReceiver.Tests\Microservice.Smart.Services.RequestReceiver.Tests.csproj", "{6F9CBF80-9C26-48B2-876B-DF251578664A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,10 +83,6 @@ Global
 		{6F9CBF80-9C26-48B2-876B-DF251578664A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F9CBF80-9C26-48B2-876B-DF251578664A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F9CBF80-9C26-48B2-876B-DF251578664A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8BA1099-E157-4434-979A-68FE7C5EF010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8BA1099-E157-4434-979A-68FE7C5EF010}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8BA1099-E157-4434-979A-68FE7C5EF010}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8BA1099-E157-4434-979A-68FE7C5EF010}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

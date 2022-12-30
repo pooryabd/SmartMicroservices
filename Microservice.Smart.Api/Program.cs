@@ -5,7 +5,9 @@ using Microservice.Smart.Api.Services;
 using Microservice.Smart.Services.Common.Constants;
 using Microservice.Smart.Services.Common.Contracts;
 using Microservice.Smart.Services.Common.Models;
+using Microservice.Smart.Services.Common.Wrappers;
 using Microsoft.OpenApi.Models;
+using SmartMicroserviceHelper = Microservice.Smart.Api.Contracts.SmartMicroserviceHelper;
 
 namespace Microservice.Smart.Api
 {
@@ -41,15 +43,17 @@ namespace Microservice.Smart.Api
 			// build configuration for smart api service
 			ISmartApiConfiguration smartApiConfiguration = new SmartApiConfiguration()
 			{
-				RequestReceiverGrpcChannelUrl = configuration[SmartApiConstants.RequestReceiverGrpcChannelUrlTitle]
+				RequestReceiverGrpcChannelUrl = configuration[SmartApiConstants.RequestReceiverGrpcChannelUrlTitle],
+				SmartMicroserviceDBConnectionString = configuration[SmartApiConstants.SmartMicroserviceDBConnectionString]
 			};
 
 			// add gRPC
 			builder.Services.AddGrpc();
 
 			// add services to DI
-			builder.Services.AddSingleton<IMapInfoHelper, MapInfoHelper>();
+			builder.Services.AddSingleton<SmartMicroserviceHelper, Helpers.SmartMicroserviceHelper>();
 			builder.Services.AddSingleton<IRequestReceiverWrapper, RequestReceiverWrapper>();
+			builder.Services.AddSingleton<IDapperWrapper, DapperWrapper>();
 			builder.Services.AddSingleton(smartApiConfiguration);
 
 			var app = builder.Build();
@@ -71,10 +75,7 @@ namespace Microservice.Smart.Api
 
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-			});
+			app.MapControllers();
 
 			app.Run();
 

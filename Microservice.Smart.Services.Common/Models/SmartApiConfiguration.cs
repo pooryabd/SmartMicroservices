@@ -8,5 +8,6 @@ namespace Microservice.Smart.Services.Common.Models
 	public class SmartApiConfiguration : ISmartApiConfiguration
 	{
 		public string RequestReceiverGrpcChannelUrl { get; set; }
+		public string SmartMicroserviceDBConnectionString { get; set; }
 	}
 }

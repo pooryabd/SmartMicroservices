@@ -2,13 +2,14 @@
 using FluentAssertions;
 using NSubstitute;
 using Microservice.Smart.Api.Contracts;
-using Microservice.Smart.Api.Helpers;
-using Microservice.Smart.Api.Models;
+using Microservice.Smart.Api.Models.Responses;
+using Microservice.Smart.Services.Common.Contracts;
 using Microservice.Smart.Services.RequestReceiver;
+using SmartMicroserviceHelper = Microservice.Smart.Api.Contracts.SmartMicroserviceHelper;
 
 namespace Microservice.Smart.Api.Tests.Helpers
 {
-	public class MapInfoHelperTests
+	public class SmartMicroserviceHelperTests
 	{
 		[Theory]
 		[AutoData]
@@ -99,11 +100,12 @@ namespace Microservice.Smart.Api.Tests.Helpers
 			// assert
 			actualResponse.Should().BeEquivalentTo(expectedResponse);
 		}
-		private (IRequestReceiverWrapper requestReceiverWrapper, IMapInfoHelper mapInfoHelper) InitializeDependencies()
+		private (IRequestReceiverWrapper requestReceiverWrapper, SmartMicroserviceHelper mapInfoHelper) InitializeDependencies()
 		{
 			var requestReceiverWrapper = Substitute.For<IRequestReceiverWrapper>();
+			var dapperWrapper = Substitute.For<IDapperWrapper>();
 
-			var mapInfoHelper = new MapInfoHelper(requestReceiverWrapper);
+			var mapInfoHelper = new Api.Helpers.SmartMicroserviceHelper(requestReceiverWrapper, dapperWrapper);
 
 			return (requestReceiverWrapper, mapInfoHelper);
 		}

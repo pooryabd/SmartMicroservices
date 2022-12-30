@@ -13,6 +13,7 @@ namespace Microservice.Smart.Services.Common.Tests.Models
 			var actualSmartApiConfiguration = new SmartApiConfiguration()
 			{
 				RequestReceiverGrpcChannelUrl = expectedSmartApiConfiguration.RequestReceiverGrpcChannelUrl,
+				SmartMicroserviceDBConnectionString = expectedSmartApiConfiguration.SmartMicroserviceDBConnectionString
 			};
 
 			// assert

@@ -1,10 +1,10 @@
 ﻿using AutoFixture.Xunit2;
-using Microservice.Smart.Api.Models;
 using FluentAssertions;
+using Microservice.Smart.Api.Models.Responses;
 
 namespace Microservice.Smart.Api.Tests.Models
 {
-	public class ISSNCodeResponseTests
+    public class ISSNCodeResponseTests
 	{
 		[Theory, AutoData]
 		public void ISSNCodeResponse_ReturnsExpectedProperties_WhenCalled(ISSNCodeResponse expectedISSNCodeResponse)

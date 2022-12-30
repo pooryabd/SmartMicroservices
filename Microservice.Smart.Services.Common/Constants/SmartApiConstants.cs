@@ -9,5 +9,6 @@ namespace Microservice.Smart.Services.Common.Constants
 	public class SmartApiConstants
 	{
 		public const string RequestReceiverGrpcChannelUrlTitle = "gRPCChannels:RequestReceiverGrpcChannelUrl";
+		public const string SmartMicroserviceDBConnectionString = "ConnectionStrings:SmartMicroserviceDB";
 	}
 }

@@ -1,23 +1,22 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-	name: mywebservicedeployment
+	name: SmartMicroservice
 spec:
 	selector:
 		matchLabels:
-			app: microservicesmartapi
+			app: SmartMicroservice
 replicas: 3
 template:
 	metadata:
 		labels:
-			app: microservicesmartapi
+			app: SmartMicroservice
 spec:
 	containers:
-		- image: "pooryabd/smartapi"
-		resources:
-			limits:
-				memory: 128Mi
-				cpu: 500m
+		- image: "pooryabd/microservicesmartapi"
+		- image: "pooryabd/microservicesmartservicesgoogledistance"
+		- image: "pooryabd/microservicesmartservicesissnchecker"
+		- image: "pooryabd/microservicesmartservicesrequestreceiver"
 imagePullPolicy: Always
 name: microservicesmartapi
 ports:
